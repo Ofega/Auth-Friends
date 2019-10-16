@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { axiosWithAuth } from './utils/axiosWithAuth';
-import { useLocalStorage } from './hooks/useLocalStorage';
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 
@@ -88,26 +87,13 @@ const App = ({ location }) => {
     <Provider store={store}>
       <Switch location={location}>
         <Route path="/login" component={Login} />
-        <Route path="/" render={
-              props => isAuthenticated ? (
-                  <Dashboard
-                    {...props}
-                    plants={plants}
-                    addPlant={addPlant}
-                    deletePlant={deletePlant}
-                    currentUser={currentUser}
-                    currentUserID={currentUserID}
-                    isLoading={isLoading}
-                    toggleLoading={toggleLoading}
-                    isModalOpen={isModalOpen}
-                    showModal={showModal}
-                    toggleAuthentication={toggleAuthentication}
-                  />
-                ) : (
-                  <Redirect to={{ pathname: "/login" }} />
-                )
-            }
-          />
+
+
+
+
+
+
+        <Route path="/" component={Dashboard} />
       </Switch>
     </Provider>
   );

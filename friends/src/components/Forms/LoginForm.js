@@ -1,43 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Form } from './Styles';
 import axios from "axios";
 
 const LoginForm = props => {
 
-    const { addCurrentUser, toggleAuthentication, addToken, toggleLoading, history } = props
+    const usernameRef = useRef();
+    const passwordRef = useRef();
+    
+    const { toggleLoading, history } = props;
 
     const initialExistingUser = {
-        loginUsername: '',
-        loginPassword: ''
+        username: '',
+        password: ''
     }
 
     const [ existingUser, setExistingUser] = useState(initialExistingUser);
-    const { loginUsername, loginPassword } = existingUser;
-
-
-    const userLogIn = (user) => { 
-        axios
-            .post(
-                "https://nchampag-watermyplants.herokuapp.com/login", 
-                `grant_type=password&username=${user.loginUsername}&password=${user.loginPassword}`,
-                {
-                    headers: {
-                    Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
-                    "Content-Type": "application/x-www-form-urlencoded"
-                    }
-                }
-            )
-            .then(res => { 
-                addToken(res.data.access_token);
-                toggleLoading(false); 
-                toggleAuthentication();
-                history.push('/');
-            })
-            .catch(err => { 
-                toggleLoading(false); 
-            });
-   };
-
+    const { username, password } = existingUser;
 
     // Handler Functions
     const handleInputChange = (e) => {
@@ -48,13 +26,24 @@ const LoginForm = props => {
     }
 
     const handleFormSubmit = (e) => {
-        if(loginUsername && loginPassword) {
+        if(username && password) {
             e.preventDefault();
-            toggleLoading(true);
-            addCurrentUser(loginUsername)
-
-            userLogIn(existingUser);
             setExistingUser(initialExistingUser);
+            // toggleLoading(true); 
+
+            axios
+                .post("http://localhost:5000/api/login", {
+                    username: usernameRef.current.value,
+                    password: passwordRef.current.value
+                })
+                .then(res => { 
+                    localStorage.setItem('token', res.data.payload);
+                    // toggleLoading(false);
+                    history.push('/');
+                })
+                .catch(err => { 
+                    // toggleLoading(false); 
+                }); 
         }
     }
     
@@ -67,12 +56,12 @@ const LoginForm = props => {
 
             <div className="form-inputs">
                 <label htmlFor="username">Username</label>
-                <input type='text' id="loginUsername" name='username' onChange={handleInputChange} value={loginUsername} placeholder='Username' required/>
+                <input type='text' ref={usernameRef} id="username" name='username' onChange={handleInputChange} value={username} placeholder='Username' required/>
             </div>
 
             <div className="form-inputs">
                 <label htmlFor="password">Password</label>
-                <input type='password' id="loginPassword" name='password' onChange={handleInputChange} value={loginPassword} placeholder='Password' required/>
+                <input type='password' ref={passwordRef} id="password" name='password' onChange={handleInputChange} value={password} placeholder='Password' required/>
             </div>
 
             <button type='submit' onClick={handleFormSubmit}>
