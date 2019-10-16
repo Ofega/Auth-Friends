@@ -12,7 +12,6 @@ const AddFriendsForm = props => {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        toggleLoading(true);
         addFriend({
             id: uuid(),
             name: nameRef.current.value,

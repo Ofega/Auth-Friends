@@ -31,7 +31,6 @@ const App = ({ location }) => {
       .post("http://localhost:5000/api/friends/", obj)
       .then(res => {
         setFriends(res.data);
-        toggleLoading(false)
       })
       .catch(err => {
         console.log(err);

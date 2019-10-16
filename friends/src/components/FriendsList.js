@@ -27,7 +27,7 @@ const FriendsList = props => {
                 ) : (
                     <div className="empty-state">
                         <img src={notFound} alt="No plants added yet" />
-                        <p> You don't have any plants yet</p>
+                        <p> You don't have any friends yet</p>
                     </div>
                 )
             }
