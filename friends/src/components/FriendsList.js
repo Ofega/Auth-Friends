@@ -3,7 +3,7 @@ import styled from "styled-components";
 import notFound from "../img/not-found.svg";
 
 
-const PlantsList = props => {
+const FriendsList = props => {
     const { friends, deleteFriend } = props;
     
     return (
@@ -35,7 +35,7 @@ const PlantsList = props => {
     )
 }
 
-export default PlantsList;
+export default FriendsList;
 
 
 const ListContainer = styled.div`

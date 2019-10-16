@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from "styled-components";
-import AddPlantsForm from './Forms/AddPlantsForm';
+import AddFriendsForm from './Forms/AddFriendsForm';
 
 
-const AddPlantsModal = props => {
+const AddFriendsModal = props => {
 
   const { isModalOpen, showModal, toggleLoading, addFriend } = props;
 
@@ -11,7 +11,7 @@ const AddPlantsModal = props => {
     isModalOpen && (
       <MainContainer>
         <div className="hero-background"></div>
-        <AddPlantsForm 
+        <AddFriendsForm 
           showModal={showModal}
           addFriend={addFriend}
           toggleLoading={toggleLoading}
@@ -21,7 +21,7 @@ const AddPlantsModal = props => {
   );
 };
 
-export default AddPlantsModal;
+export default AddFriendsModal;
 
 const MainContainer = styled.div`
     display: flex;

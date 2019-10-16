@@ -3,7 +3,7 @@ import { Form } from './Styles';
 import uuid from 'uuid'
 
 
-const AddPlantsForm = props => {
+const AddFriendsForm = props => {
     const { showModal, toggleLoading, addFriend } = props;
 
     const nameRef = useRef();
@@ -53,4 +53,4 @@ const AddPlantsForm = props => {
     )
 }
 
-export default AddPlantsForm;
+export default AddFriendsForm;

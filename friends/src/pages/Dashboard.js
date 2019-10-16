@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import onboardingBG from '../img/onboarding-bg.jpg';
-import  PlantsList  from "../components/PlantsList";
-import AddPlantsModal from '../components/AddPlantsModal';
+import  FriendsList  from "../components/FriendsList";
+import AddFriendsModal from '../components/AddFriendsModal';
 import LoadingIndicator from '../components/LoadingIndicator';
 
 
@@ -22,8 +22,8 @@ const Dashboard = props => {
                     </button>
                 </div>
             </header>
-            <PlantsList friends={friends} deleteFriend={deleteFriend} />
-            <AddPlantsModal 
+            <FriendsList friends={friends} deleteFriend={deleteFriend} />
+            <AddFriendsModal 
                 showModal={showModal}
                 isModalOpen={isModalOpen}
                 addFriend={addFriend}

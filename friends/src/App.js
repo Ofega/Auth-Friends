@@ -3,8 +3,6 @@ import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-
-// import styled from "styled-components";
 import { axiosWithAuth } from './utils/axiosWithAuth';
 
 
