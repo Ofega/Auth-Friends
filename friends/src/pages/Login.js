@@ -7,17 +7,14 @@ import onboardingBG from '../img/onboarding-bg.jpg';
 
 const Login = props => {
 
-  const { addCurrentUser, currentUser, toggleAuthentication, notify, isLoading, toggleLoading } = props
+  const { isLoading, toggleLoading } = props
 
   return (
       <>
         <Onboarding>
           <div className="hero-background"></div>
-          <LoginForm {...props} 
-            toggleAuthentication={toggleAuthentication} 
-            addCurrentUser={addCurrentUser} 
-            currentUser={currentUser} 
-            notify={notify}
+          <LoginForm 
+            {...props} 
             toggleLoading={toggleLoading}
           />
         </Onboarding>

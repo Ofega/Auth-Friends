@@ -1,46 +1,32 @@
-import React from 'react';
-import { createStore, compose, applyMiddleware  } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
-import { axiosWithAuth } from './utils/axiosWithAuth';
-import Dashboard from "./pages/Dashboard";
+
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
-import axios from "axios";
-import styled from "styled-components";
-import reducer from './state/reducers/index';
-
-
-const store = createStore (
-  reducer,
-  compose (
-    applyMiddleware(thunk)
-  )
-);
+// import axios from "axios";
+// import styled from "styled-components";
+// import { axiosWithAuth } from './utils/axiosWithAuth';
 
 
 const App = ({ location }) => {
-  // const addCurrentUser = (user) => {
-  //   setCurrentUser(user);
-  // }
 
-  // const addToken = (token) => {
-  //   setToken(token);
-  // }
+  const [ isLoading, setLoadingIndicator ] = useState(false); //Loading Indicator
+  const [ isModalOpen, setModalOpen ] = useState(false); //Modal Toggle
+  const [ isAuthenticated, setIsAuthenticated ] = useState(false); //Is User Authenticated (for private routes)
 
-  // const toggleAuthentication = () => {
-  //   setIsAuthenticated(!isAuthenticated)
-  // }
+  const toggleAuthentication = () => {
+    setIsAuthenticated(!isAuthenticated)
+  }
 
-  // const toggleLoading = (bool) => {
-  //   setLoadingIndicator(bool);
-  // }
+  const toggleLoading = (bool) => {
+    setLoadingIndicator(bool);
+  }
 
-  // const showModal = (e) => {
-  //   e.preventDefault();
-  //   setModalOpen(!isModalOpen);
-  // }
+  const showModal = (e) => {
+    e.preventDefault();
+    setModalOpen(!isModalOpen);
+  }
 
   // const addPlant = ( newPlantObj ) => {
   //   axiosWithAuth()
@@ -67,7 +53,6 @@ const App = ({ location }) => {
   //     })
   // }
 
-
   // useEffect(() => {
   //   if(currentUser !== '') {
   //     axios
@@ -84,20 +69,34 @@ const App = ({ location }) => {
   // }, [currentUser, newPlant])
 
   return ( 
-    <Provider store={store}>
       <Switch location={location}>
-        <Route path="/login" component={Login} />
+        <Route 
+          path="/login" 
+          render={(props) => <Login 
+            isLoading={isLoading}
+            toggleLoading={toggleLoading}
+            {...props} 
+          />}
+        />
 
-
-
-
-
-
-        <Route path="/" component={Dashboard} />
+        <Route path="/" render={
+            props => (
+                <Dashboard
+                  {...props}
+                  isLoading={isLoading}
+                  toggleLoading={toggleLoading}
+                  isModalOpen={isModalOpen}
+                  showModal={showModal}
+                  toggleAuthentication={toggleAuthentication}
+                />
+              )
+          }
+        />
       </Switch>
-    </Provider>
   );
 }
 
 export default withRouter(App);
+
+
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Form } from './Styles';
 import axios from "axios";
 
@@ -9,42 +9,22 @@ const LoginForm = props => {
     
     const { toggleLoading, history } = props;
 
-    const initialExistingUser = {
-        username: '',
-        password: ''
-    }
-
-    const [ existingUser, setExistingUser] = useState(initialExistingUser);
-    const { username, password } = existingUser;
-
-    // Handler Functions
-    const handleInputChange = (e) => {
-        setExistingUser({
-            ...existingUser,
-            [e.target.id]: e.target.value
-        })
-    }
-
     const handleFormSubmit = (e) => {
-        if(username && password) {
-            e.preventDefault();
-            setExistingUser(initialExistingUser);
-            // toggleLoading(true); 
+        e.preventDefault();
+        toggleLoading(true); 
 
-            axios
-                .post("http://localhost:5000/api/login", {
-                    username: usernameRef.current.value,
-                    password: passwordRef.current.value
-                })
-                .then(res => { 
-                    localStorage.setItem('token', res.data.payload);
-                    // toggleLoading(false);
-                    history.push('/');
-                })
-                .catch(err => { 
-                    // toggleLoading(false); 
-                }); 
-        }
+        axios
+            .post("http://localhost:5000/api/login", {
+                username: usernameRef.current.value,
+                password: passwordRef.current.value
+            })
+            .then(res => { 
+                localStorage.setItem('token', res.data.payload);
+                history.push('/');
+            })
+            .catch(err => { 
+                toggleLoading(false); 
+            }); 
     }
     
     return (
@@ -56,12 +36,12 @@ const LoginForm = props => {
 
             <div className="form-inputs">
                 <label htmlFor="username">Username</label>
-                <input type='text' ref={usernameRef} id="username" name='username' onChange={handleInputChange} value={username} placeholder='Username' required/>
+                <input type='text' ref={usernameRef} id="username" name='username' placeholder='Username' required/>
             </div>
 
             <div className="form-inputs">
                 <label htmlFor="password">Password</label>
-                <input type='password' ref={passwordRef} id="password" name='password' onChange={handleInputChange} value={password} placeholder='Password' required/>
+                <input type='password' ref={passwordRef} id="password" name='password' placeholder='Password' required/>
             </div>
 
             <button type='submit' onClick={handleFormSubmit}>

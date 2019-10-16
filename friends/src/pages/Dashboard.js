@@ -8,24 +8,10 @@ import LoadingIndicator from '../components/LoadingIndicator';
 
 const Dashboard = props => {
 
-    const [ isOpen, setIsOpen ] = useState(false);
-
-    const toggleNav = () => {
-        setIsOpen(!isOpen);
-    }
-
-    const { 
-        plants, 
-        addPlant, 
-        deletePlant, 
-        toggleAuthentication, 
-        currentUser, 
-        currentUserID, 
-        isLoading,
-        toggleLoading,
-        isModalOpen, 
-        showModal 
-    } = props;
+    const {
+        showModal,
+        toggleAuthentication
+    } = props
 
     return (
         <MainContainer>
@@ -34,30 +20,23 @@ const Dashboard = props => {
                     <h1 className="logo">
                         Water My plants
                     </h1>
-                    <ul className={isOpen ? 'open' : null}>
-                        <li onClick={toggleNav}><button onClick={toggleAuthentication}>Logout</button></li>
+                    <ul>
+                        <li ><button onClick={toggleAuthentication}>Logout</button></li>
                     </ul>
                 </div>
             </nav>
             <header>
                 <img src={onboardingBG} alt="Header Background" />
                 <div className="header-content">
-                    <h1>Welcome {currentUser[0].toUpperCase() + currentUser.slice(1)}!</h1>
-                    
+                    <h1>Welcome!!!</h1>
+                   
                     <button onClick={showModal}>
                         +
                     </button>
                 </div>
             </header>
-            <AddPlantsModal 
-                isModalOpen={isModalOpen} 
-                currentUser={currentUser} 
-                currentUserID={currentUserID} 
-                addPlant={addPlant} 
-                showModal={showModal} 
-                toggleLoading={toggleLoading}
-            />   
-            { isLoading ? <LoadingIndicator /> : null }
+            <AddPlantsModal />   
+            {/* { isLoading ? <LoadingIndicator /> : null } */}
         </MainContainer>
     );
 }
