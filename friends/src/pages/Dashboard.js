@@ -92,17 +92,6 @@ const MainContainer = styled.div`
                 font-family: 'Indie Flower', cursive;
                 display: flex;
                 align-items: center;
-
-                span {
-                    max-width: 30px;
-                    margin-top: 1rem;
-                    margin-left: 1rem;
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
             }
 
             ul {
@@ -206,109 +195,6 @@ const MainContainer = styled.div`
                                     border-bottom: none;
                                 }
                             }
-                        }
-                    }
-                }
-            }
-
-            .responsive-nav {
-                display: block;
-                background: transparent;
-                min-width: inherit;
-                position: relative;
-                min-height: 0;
-                height: 20px;
-                width: 25px;
-                border: none;
-                outline: none;
-            
-                @media (min-width: 768px) {
-                    display: none;
-                }
-            
-                span {
-                    display: block;
-                    position: absolute;
-                    height: 2.5px;
-                    width: 50%;
-                    background: #000;
-                    opacity: 1;
-                    -webkit-transform: rotate(0deg);
-                    -moz-transform: rotate(0deg);
-                    -o-transform: rotate(0deg);
-                    transform: rotate(0deg);
-                    -webkit-transition: .25s ease-in-out;
-                    -moz-transition: .25s ease-in-out;
-                    -o-transition: .25s ease-in-out;
-                    transition: .25s ease-in-out;
-            
-                    &:nth-child(even) {
-                        left: 50%;
-                        border-radius: 0 9px 9px 0;
-                    }
-            
-                    &:nth-child(odd) {
-                        left:0px;
-                        border-radius: 9px 0 0 9px;
-                    }
-            
-                    &:nth-child(1), &:nth-child(2) {
-                        top: 0px;
-                    }
-            
-                    &:nth-child(3), &:nth-child(4) {
-                        top: 8px;
-                    }
-            
-                    &:nth-child(5), &:nth-child(6) {
-                        top: 16px;
-                    }
-                }
-            
-                &.open {
-                    span {
-                        &:nth-child(1), &:nth-child(6) {
-                            -webkit-transform: rotate(45deg);
-                            -moz-transform: rotate(45deg);
-                            -o-transform: rotate(45deg);
-                            transform: rotate(45deg);
-                        }
-            
-                        &:nth-child(2), &:nth-child(5) {
-                            -webkit-transform: rotate(-45deg);
-                            -moz-transform: rotate(-45deg);
-                            -o-transform: rotate(-45deg);
-                            transform: rotate(-45deg);
-                        }
-            
-                        &:nth-child(1) {
-                            left: 3px;
-                            top: 3px;
-                        }
-                    
-                        &:nth-child(2) {
-                            right: 3px;
-                            top: 3px;
-                        }
-                    
-                        &:nth-child(3) {
-                            left: -50%;
-                            opacity: 0;
-                        }
-                    
-                        &:nth-child(4) {
-                            left: 100%;
-                            opacity: 0;
-                        }
-                    
-                        &:nth-child(5) {
-                            left: 3px;
-                            bottom: 3px;
-                        }
-                    
-                        &:nth-child(6) {
-                            right: 3px;
-                            bottom: 3px;
                         }
                     }
                 }

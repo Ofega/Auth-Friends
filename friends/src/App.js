@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { combineReducers, createStore  } from 'redux';
+import React from 'react';
+import { createStore, compose, applyMiddleware  } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { axiosWithAuth } from './utils/axiosWithAuth';
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -9,88 +10,79 @@ import Login from "./pages/Login";
 
 import axios from "axios";
 import styled from "styled-components";
-import * as reducers from './state/reducers';
+import reducer from './state/reducers/index';
 
-const rootReducer = combineReducers({
-  friends: reducers.friendsReducer
-})
 
-const store = createStore(rootReducer);
+const store = createStore (
+  reducer,
+  compose (
+    applyMiddleware(thunk)
+  )
+);
 
 
 const App = ({ location }) => {
+  // const addCurrentUser = (user) => {
+  //   setCurrentUser(user);
+  // }
 
-  const [ plants, setPlants ] = useState([]); //All the plants for the user
-  const [ isLoading, setLoadingIndicator ] = useState(false); //Loading Indicator
-  const [ isModalOpen, setModalOpen ] = useState(false); //Modal Toggle
-  const [ isAuthenticated, setIsAuthenticated ] = useLocalStorage('isAuthenticated', false); //Is User Authenticated (for private routes)
-  const [ currentUser, setCurrentUser ] = useLocalStorage('username', ''); //Current Logged In User
-  const [ currentUserID, setCurrentUserID ] = useState(''); //UserID for current loggedIn user. Used to post requests
-  const [ token, setToken ] = useLocalStorage('token', ''); //User Token. Set to local storage during log in
-  const [ newPlant, setNewPlant ] = useState(null); //Object to detect if a new plant is added and what should happen after
+  // const addToken = (token) => {
+  //   setToken(token);
+  // }
 
+  // const toggleAuthentication = () => {
+  //   setIsAuthenticated(!isAuthenticated)
+  // }
 
-  const addCurrentUser = (user) => {
-    setCurrentUser(user);
-  }
+  // const toggleLoading = (bool) => {
+  //   setLoadingIndicator(bool);
+  // }
 
-  const addToken = (token) => {
-    setToken(token);
-  }
+  // const showModal = (e) => {
+  //   e.preventDefault();
+  //   setModalOpen(!isModalOpen);
+  // }
 
-  const toggleAuthentication = () => {
-    setIsAuthenticated(!isAuthenticated)
-  }
+  // const addPlant = ( newPlantObj ) => {
+  //   axiosWithAuth()
+  //     .post("plants/plant", newPlantObj)
+  //     .then(res => {
+  //       setNewPlant(res.data);
+  //       toggleLoading(false);
+  //     })
+  //     .catch(err => {
+  //       toggleLoading(false); 
+  //     })
+  // }
 
-  const toggleLoading = (bool) => {
-    setLoadingIndicator(bool);
-  }
-
-  const showModal = (e) => {
-    e.preventDefault();
-    setModalOpen(!isModalOpen);
-  }
-
-  const addPlant = ( newPlantObj ) => {
-    axiosWithAuth()
-      .post("plants/plant", newPlantObj)
-      .then(res => {
-        setNewPlant(res.data);
-        toggleLoading(false);
-      })
-      .catch(err => {
-        toggleLoading(false); 
-      })
-  }
-
-  const deletePlant = (plantid, plantObj) => {
-    toggleLoading(true);
-    axiosWithAuth()
-      .delete(`plants/plant/${plantid}`)
-      .then(res => {
-        setNewPlant(plantObj);
-        toggleLoading(false);
-      })
-      .catch(err => {
-        toggleLoading(false); 
-      })
-  }
+  // const deletePlant = (plantid, plantObj) => {
+  //   toggleLoading(true);
+  //   axiosWithAuth()
+  //     .delete(`plants/plant/${plantid}`)
+  //     .then(res => {
+  //       setNewPlant(plantObj);
+  //       toggleLoading(false);
+  //     })
+  //     .catch(err => {
+  //       toggleLoading(false); 
+  //     })
+  // }
 
 
-  useEffect(() => {
-    if(currentUser !== '') {
-      axios
-        .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
-        .then(res => {
-          setCurrentUserID(res.data.userid);
-          setPlants(res.data.plants);
-          toggleLoading(false);
-        })
-        .catch(err => {
-          toggleLoading(false); 
-        })
-    }
-  }, [currentUser, newPlant])
+  // useEffect(() => {
+  //   if(currentUser !== '') {
+  //     axios
+  //       .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
+  //       .then(res => {
+  //         setCurrentUserID(res.data.userid);
+  //         setPlants(res.data.plants);
+  //         toggleLoading(false);
+  //       })
+  //       .catch(err => {
+  //         toggleLoading(false); 
+  //       })
+  //   }
+  // }, [currentUser, newPlant])
 
   return ( 
     <Provider store={store}>
