@@ -87,7 +87,6 @@ const App = ({ location }) => {
                   toggleLoading={toggleLoading}
                   isModalOpen={isModalOpen}
                   showModal={showModal}
-                  toggleAuthentication={toggleAuthentication}
                 />
               )
           }

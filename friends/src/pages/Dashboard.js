@@ -8,23 +8,10 @@ import LoadingIndicator from '../components/LoadingIndicator';
 
 const Dashboard = props => {
 
-    const {
-        showModal,
-        toggleAuthentication
-    } = props
+    const { showModal, isLoading, isModalOpen } = props
 
     return (
         <MainContainer>
-            <nav>
-                <div className="navigation">
-                    <h1 className="logo">
-                        Water My plants
-                    </h1>
-                    <ul>
-                        <li ><button onClick={toggleAuthentication}>Logout</button></li>
-                    </ul>
-                </div>
-            </nav>
             <header>
                 <img src={onboardingBG} alt="Header Background" />
                 <div className="header-content">
@@ -35,8 +22,10 @@ const Dashboard = props => {
                     </button>
                 </div>
             </header>
-            <AddPlantsModal />   
-            {/* { isLoading ? <LoadingIndicator /> : null } */}
+            <AddPlantsModal 
+                isModalOpen={isModalOpen}
+            />   
+            { isLoading ? <LoadingIndicator /> : null }
         </MainContainer>
     );
 }
@@ -45,141 +34,6 @@ export default Dashboard;
 
 const MainContainer = styled.div`
     min-height: 100vh;
-
-    nav {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        z-index: 6;
-
-        .navigation {
-            max-width: calc(1140px - 4rem);
-            margin: 0 auto;
-            width: 100%;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-height: 40px;
-            padding: 0 2rem;
-            position: relative;
-
-            .logo {
-                max-width: 270px;
-                width: 100%;
-                font-size: 2.5rem;
-                font-family: 'Indie Flower', cursive;
-                display: flex;
-                align-items: center;
-            }
-
-            ul {
-                display: none;
-                list-style-type: none;
-                width: calc(100% - 200px);
-                position: relative;
-                flex-direction: row;
-                top: 0;
-                position: static;
-
-                li {  
-                    width: auto;
-                    padding: 0 2rem;
-
-                    a, button {
-                        padding: 2rem 0;
-                        font-size: 1.4rem;
-                        color: rgba(0, 0, 0, .6);
-                        text-decoration: none;
-                        font-weight: 500;
-                        background: none;
-                        border: none;
-                        outline: none;
-                        border-bottom: none;
-                        display: inline-block;
-
-                        &.selected {
-                            border-bottom: 3px solid #419BA0;
-                            color: #419BA0;
-                            font-weight: 600;
-                        }
-                    }
-                        
-                    &:last-of-type {
-                        position: absolute;
-                        right: 0;
-                        padding-right: 0;
-
-                        button {
-                            padding-right: 2rem;
-                        }
-                    }
-                }
-
-                @media (min-width: 768px) {
-                    display: flex;
-                }
-
-                @media (max-width: 768px){
-                    &.open {
-                        display: flex;
-                        position: absolute;
-                        background: white;
-                        flex-direction: column;
-                        top: 60px;
-                        right: 0;
-                        width: 100%;
-                        text-align: end;
-                        max-width: 320px;
-                        border-radius: 5px;
-                        margin-right: 1rem;
-                        border: 1px solid #ddd;
-
-                        &:before  {
-                            content: ' ';
-                            position: absolute;
-                            border: solid 15px transparent;
-                            border-top: solid 0px transparent;
-                            border-width: 14px;
-                            border-color: #fff transparent transparent transparent;
-                            right: .8rem;
-                            transform: rotate(180deg);
-                            top: -28px;
-                        }
-    
-                        li {
-                            width: 100%;
-        
-                            a, button {
-                                width: 100%;
-                                border-bottom: 1px solid #ddd;
-        
-                                &.selected {
-                                    border-bottom: 1px solid #419BA0;
-                                    color: #419BA0;
-                                    font-weight: 600;
-                                }
-        
-                                &:hover {
-                                    color: #419BA0;
-                                }
-                            }
-        
-                            &:last-of-type {
-                                position: static;
-    
-                                button {
-                                    width: 100%;
-                                    text-align: right;
-                                    border-bottom: none;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     header {
         height: 27vh;
