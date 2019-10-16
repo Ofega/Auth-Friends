@@ -4,22 +4,21 @@ import notFound from "../img/not-found.svg";
 
 
 const PlantsList = props => {
-    const { plants, deletePlant } = props;
+    const { friends, deleteFriend } = props;
     
     return (
         <ListContainer>
             {
-                plants.length !== 0 ? (
+                friends.length !== 0 ? (
                     <ul>
                         {   
-                            plants.map(({ plantid, species, name, location, schedule }) => {
+                            friends.map(({ id, name, age, email }) => {
                                 return (
-                                    <li key={plantid}>
-                                        <p>Species: <span>{species}</span></p>
+                                    <li key={id}>
                                         <p>Name: <span>{name}</span></p>
-                                        <p>Location: <span>{location}</span></p>
-                                        <p>Schedule: <span>{schedule > 1 ? `${schedule} times` : 'Once'} a week</span></p>
-                                        <button className="deleteButton" onClick={()=>{deletePlant(plantid, { plantid, species, name, location, schedule })}}> x </button>
+                                        <p>Age: <span>{age}</span></p>
+                                        <p>Email: <span>{email}</span></p>
+                                        <button className="deleteButton" onClick={() => {deleteFriend(id)}}> x </button>
                                     </li>
                                 )
                             })

@@ -8,7 +8,7 @@ import LoadingIndicator from '../components/LoadingIndicator';
 
 const Dashboard = props => {
 
-    const { showModal, isLoading, isModalOpen } = props
+    const { friends, deleteFriend, showModal, isLoading, isModalOpen } = props
 
     return (
         <MainContainer>
@@ -22,6 +22,7 @@ const Dashboard = props => {
                     </button>
                 </div>
             </header>
+            <PlantsList friends={friends} deleteFriend={deleteFriend} />
             <AddPlantsModal 
                 isModalOpen={isModalOpen}
             />   
