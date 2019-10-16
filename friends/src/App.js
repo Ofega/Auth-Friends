@@ -9,11 +9,11 @@ import { axiosWithAuth } from './utils/axiosWithAuth';
 const App = ({ location }) => {
 
   const [ friends, setFriends ] = useState([])
-  const [ isLoading, setLoadingIndicator ] = useState(false); //Loading Indicator
-  const [ isModalOpen, setModalOpen ] = useState(false); //Modal Toggle
-  const [ isAuthenticated, setIsAuthenticated ] = useState(false); //Is User Authenticated (for private routes)
+  const [ isLoading, setLoadingIndicator ] = useState(false);
+  const [ isModalOpen, setModalOpen ] = useState(false);
+  const [ isAuthenticated, setIsAuthenticated ] = useState(false);
 
-  const toggleAuthentication = () => {
+  const toggleAuthenticated = () => {
     setIsAuthenticated(!isAuthenticated)
   }
 
@@ -67,6 +67,7 @@ const App = ({ location }) => {
           render={(props) => <Login 
             isLoading={isLoading}
             toggleLoading={toggleLoading}
+            toggleAuthenticated={toggleAuthenticated}
             {...props} 
           />}
         />

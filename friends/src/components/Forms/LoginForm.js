@@ -7,7 +7,7 @@ const LoginForm = props => {
     const usernameRef = useRef();
     const passwordRef = useRef();
     
-    const { toggleLoading, history } = props;
+    const { toggleLoading, history, toggleAuthenticated } = props;
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -20,6 +20,7 @@ const LoginForm = props => {
             })
             .then(res => { 
                 localStorage.setItem('token', res.data.payload);
+                toggleAuthenticated(true);
                 history.push('/');
             })
             .catch(err => { 
