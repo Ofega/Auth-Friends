@@ -28,17 +28,17 @@ const App = ({ location }) => {
     setModalOpen(!isModalOpen);
   }
 
-  // const addPlant = ( newPlantObj ) => {
-  //   axiosWithAuth()
-  //     .post("plants/plant", newPlantObj)
-  //     .then(res => {
-  //       setNewPlant(res.data);
-  //       toggleLoading(false);
-  //     })
-  //     .catch(err => {
-  //       toggleLoading(false); 
-  //     })
-  // }
+  const addFriend = ( obj ) => {
+    axiosWithAuth()
+      .post("http://localhost:5000/api/friends/", obj)
+      .then(res => {
+        setFriends(res.data);
+        toggleLoading(false)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
   const deleteFriend = (id) => {
     axiosWithAuth()
@@ -79,6 +79,7 @@ const App = ({ location }) => {
                 <Dashboard
                   {...props}
                   friends={friends}
+                  addFriend={addFriend}
                   deleteFriend={deleteFriend}
                   isLoading={isLoading}
                   toggleLoading={toggleLoading}

@@ -1,39 +1,25 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { Form } from './Styles';
+import uuid from 'uuid'
 
 
 const AddPlantsForm = props => {
-    const { showModal, toggleLoading, addPlant, currentUserID } = props;
+    const { showModal, toggleLoading, addFriend } = props;
 
-    const initialPlant = {
-        "species": '',
-        "name": '',
-        "location": '',
-        "schedule": 0,
-        "user": {
-            "userid": parseInt(currentUserID)
-        }
-    }
-    const [ newPlant, setNewPlant] = useState(initialPlant);
-    const { species, name, location, schedule } = newPlant;
-
-
-    // Handler Functions
-    const handleInputChange = (e) => {
-        setNewPlant({
-            ...newPlant,
-            [e.target.id]: e.target.value
-        })
-    }
+    const nameRef = useRef();
+    const emailRef = useRef();
+    const ageRef = useRef();
 
     const handleFormSubmit = (e) => {
-        if(species && name && location && schedule) {
-            e.preventDefault();
-            toggleLoading(true);
-            addPlant({...newPlant, schedule: parseInt(newPlant.schedule)});
-            setNewPlant(initialPlant);
-            showModal(e);
-        }
+        e.preventDefault();
+        toggleLoading(true);
+        addFriend({
+            id: uuid(),
+            name: nameRef.current.value,
+            age: Number(ageRef.current.value),
+            email: emailRef.current.value
+        });
+        showModal(e);
     }
 
 
@@ -42,31 +28,26 @@ const AddPlantsForm = props => {
             <button onClick={showModal} className="close-btn">x</button>
 
             <div className="form-header">
-                <h1>Add New Plant</h1>
+                <h1>Add New Friend</h1>
             </div>
 
             <div className="form-inputs">
-                <label htmlFor="species">Specie</label>
-                <input type='text' id="species" name='species' onChange={handleInputChange} value={species} placeholder='Species' required/>
+                <label htmlFor="name">Name</label>
+                <input type='text' ref={nameRef} id="name" name='plantname' placeholder='Name' required/>
             </div>
 
             <div className="form-inputs">
-                <label htmlFor="plantname">Name</label>
-                <input type='text' id="name" name='plantname' onChange={handleInputChange} value={name} placeholder='Plant Name' required/>
+                <label htmlFor="age">Age</label>
+                <input type='text' ref={ageRef} id="age" name='age' placeholder='Age' required/>
             </div>
 
             <div className="form-inputs">
-                <label htmlFor="location">Location</label>
-                <input type='text' id="location" name='location' onChange={handleInputChange} value={location} placeholder='Location' required/>
-            </div>
-
-            <div className="form-inputs">
-                <label htmlFor="schedule">Schedule</label>
-                <input type='number' id="schedule" name='schedule' onChange={handleInputChange} value={schedule} placeholder='Schedule' required/>
+                <label htmlFor="email">Email</label>
+                <input type='email' ref={emailRef} id="email" name='email' placeholder='Email' required/>
             </div>
 
             <button type='submit' onClick={handleFormSubmit}>
-                Add Plant
+                Add Friend
             </button>
         </Form>
     )
